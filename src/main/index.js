@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow,Menu } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -13,7 +13,31 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
+let template = [{
+  label:"编辑",
+    submenu:[{
+      label:'撤销',
+        acceleration:'CmdOrCtrl+Z',
+        role:'undo'
+    },{
+        label: '切换全屏',
+        accelerator: (function () {
+            if (process.platform === 'darwin') {
+                return 'Ctrl+Command+F'
+            } else {
+                return 'F11'
+            }
+        })(),
+        click: function (item, focusedWindow) {
+            if (focusedWindow) {
+                focusedWindow.setFullScreen(!focusedWindow.isFullScreen())
+            }
+        }
+    }]
+}]
 function createWindow () {
+    const menu = Menu.buildFromTemplate(template)
+    Menu.setApplicationMenu(menu)
   /**
    * Initial window options
    */
