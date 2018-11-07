@@ -84,6 +84,10 @@
                     case 'save': //保存文件
                         this.saveCurrentDoc();
                         break;
+                    case 'close': //保存文件
+                        this.content = "";
+                        currentFile = null;
+                        break;
                 }
             });
         }

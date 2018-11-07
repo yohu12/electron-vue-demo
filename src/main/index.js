@@ -21,13 +21,18 @@ let template = [{
             mainWindow.webContents.send('action', 'open');
         }
     }, {
-        label: "保持",
+        label: "保存",
         click() {
             mainWindow.webContents.send('action', 'save'); //点击后向主页渲染进程发送“保存文件”的命令
         },
         accelerator: 'CmdOrCtrl+S' //快捷键：Ctrl+S
     }, {
         label: "关闭",
+        click() {
+            mainWindow.webContents.send('action', 'close');
+        }
+    }, {
+        label: "退出",
         role: 'close'
     }]
 },
